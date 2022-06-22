@@ -9,12 +9,18 @@ export default function FriendForm(props) {
     // a) pull the name of the input from the event object
     // b) pull the value of the input from the event object
     // c) use the `update` callback coming in through props
+    const name = evt.target.name;
+    const { value } = evt.target;
+
+    update(name, value);
   }
 
   const onSubmit = evt => {
     // 🔥 STEP 7 - IMPLEMENT the submit handler
     // a) don't allow the browser to reload!
     // c) use the `submit` callback coming in through props
+    evt.preventDefault();
+    submit();
   }
 
   return (
@@ -55,7 +61,7 @@ export default function FriendForm(props) {
         <label>Role
           {/* 🔥 STEP 5 - Make dropdown for role. */}
           <select value={values.role} name="role" onChange={onChange}>
-            <option value="">-- Select a Role --</option>
+            <option disabled hidden value="">-- Select a Role --</option>
             <option value="Student">Student</option>
             <option value="Instructor">Instructor</option>
             <option value="Alumni">Alumni</option>
