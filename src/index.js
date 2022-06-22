@@ -18,13 +18,26 @@ function SimpleForm() {
     console.log(evt.target.name, evt.target.value);
     setFormValues({ ...formValues, [evt.target.name]: evt.target.value });
   }
+
+  const submit = (evt) => {
+    evt.preventDefault();
+    const newPet = {
+      petName: formValues.petName.trim(),
+      petType: formValues.petType.trim()
+    }
+
+    setPets(pets.concat(newPet));
+    // setPets([ ...pets, newPet ]);
+    setFormValues({ petName: "", petType: "" })
+  }
+
   return (
     <div className="container">
       {pets.map((pet, idx) => (
         <p key={idx}>petName: {pet.petName} petType: {pet.petType} </p>
       ))}
 
-      <form>
+      <form onSubmit={submit}>
         <input 
           type="text" 
           name="petName" 
@@ -45,8 +58,8 @@ function SimpleForm() {
 
 render(
   <>
-    <SimpleForm />
-    {/* <App /> */}
+    {/* <SimpleForm /> */}
+    <App />
   </>
   , document.querySelector('#root')
 )
