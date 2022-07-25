@@ -11,7 +11,7 @@ const petsList = [
 ]
 
 const initialFormValues = {
-  pet: '',
+  petName: '',
   petType: ''
 }
 
@@ -20,7 +20,23 @@ function SimpleForm() {
   const [formValues, setFormValues] = useState(initialFormValues)
 
   const change = event => {
-    null
+    const { name, value } = event.target
+    console.log(name)
+    console.log(value)
+    setFormValues({ ...formValues, [name]: value })
+  }
+
+  const submit = event => {
+    event.preventDefault()
+    const newPet = {
+      // .trim() removes blank spaces
+      petName: formValues.petName.trim(),
+      petType: formValues.petType.trim()
+    }
+    //Both codes below work for submitting the petName and petType to the array
+    // setPets(pets.concat(newPet))
+    setPets([...pets, newPet])
+    setFormValues(initialFormValues)
   }
 
   return (
@@ -31,21 +47,17 @@ function SimpleForm() {
           {pet.petName} is a {pet.petType}
         </div>)
       })}
-      <form>
+      <form onSubmit={submit}>
         <input
           type={'text'}
-          onChange={change => {
-
-          }}
+          onChange={change}
           value={formValues.petName}
           name={'petName'}
         />
 
         <input
           type={'text'}
-          onChange={change => {
-
-          }}
+          onChange={change}
           value={formValues.petType}
           name={'petType'}
         />
